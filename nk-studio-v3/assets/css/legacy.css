@@ -1,0 +1,77 @@
+/*
+ * NK Studio v3.10.0 — original (Neuros) inner pages inside the NK DARK theme.
+ * Loaded ONLY on original inner pages (see inc/legacy.php). Same page as the home: NK gradient + permanent mesh behind,
+ * NK header and footer untouched. The original page content keeps its structure, images and layout; its light surfaces and
+ * dark text are turned into the dark theme by assets/js/nk-legacy-dark.js (surfaces -> dark glass, dark text -> light).
+ */
+
+/* the NK header is fixed; the original page starts below it */
+body.nk-legacy-page .nk-main { padding-top: var(--nk-legacy-offset, 91px); position: relative; z-index: 3; background: transparent; color: #f3ebe7; font-size: 16px; line-height: 1.5; font-family: Manrope, Arial, Helvetica, sans-serif; }
+/* when the original page-title frame is printed (compat plugin) the frame starts at y = 0 and carries the clearance */
+body.nk-legacy-page .nk-main:has(> .nkc-top-page:first-child) { padding-top: 0; }
+body.nk-legacy-page .nkc-top-page { display: flow-root; padding-top: var(--nk-legacy-offset, 91px); background: transparent; color: #fff; }
+/* v3.12.0: NO panel behind the content: the NK orange gradient + mesh is the page. One container width for every section. */
+body.nk-legacy-page .nk-main .content-wrapper { background: transparent !important; color: #f3ebe7; font-size: 16px; line-height: 1.5; font-family: Manrope, Arial, Helvetica, sans-serif;
+	width: 100%; max-width: 1440px; margin: 0 auto !important; padding-left: clamp(16px, 3vw, 40px) !important; padding-right: clamp(16px, 3vw, 40px) !important; box-sizing: border-box; }
+body.nk-legacy-page .nk-main .content-wrapper > .content, body.nk-legacy-page .nk-main .content-inner { max-width: 100%; }
+/* Elementor "stretched" sections (map, sliders) break out of the container with inline widths; keep them inside it */
+body.nk-legacy-page .nk-main .elementor-section-stretched { width: 100% !important; left: 0 !important; margin-left: 0 !important; }
+body.nk-legacy-page .nk-main .elementor { font-size: inherit; }
+body.nk-legacy-page .nk-main img { max-width: 100%; }
+
+/* the skin (classes are set by nk-legacy-dark.js) */
+.nkd-s { background-color: rgba(16, 7, 4, .84) !important; border-color: rgba(255,255,255,.14) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.nkd-s .nkd-t, .nkd-s.nkd-t { text-shadow: none; }
+.nkd-c { background-color: transparent !important; border-color: transparent !important; }
+.nkd-t { color: #f3ebe7 !important; text-shadow: 0 1px 14px rgba(50, 12, 0, .32); }
+.nkd-b { border-color: rgba(255,255,255,.26) !important; }
+body.nk-legacy-page .nk-main ::placeholder { color: rgba(255,255,255,.5); opacity: 1; }
+body.nk-legacy-page .nk-main select option { background: #1a0c08; color: #f3ebe7; }
+/* no flash of the light page: hidden until the skin ran (CSS fallback shows it after 1.8 s even if the script fails) */
+body.nk-legacy-page:not(.nkd-ready) .nk-main .content-wrapper { opacity: 0; animation: nkd-show .01s 1.8s forwards; }
+body.nk-legacy-page.nkd-ready .nk-main .content-wrapper { opacity: 1; transition: opacity .25s ease; }
+@keyframes nkd-show { to { opacity: 1; } }
+
+/* forms: full-width dark glass fields, accent button */
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field input:not([type=checkbox]):not([type=radio]):not([type=submit]):not([type=hidden]),
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field textarea,
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field select {
+	width: 100% !important; max-width: 100% !important; min-height: 48px; padding: 12px 16px !important; box-sizing: border-box;
+	background: rgba(255,255,255,.08) !important; border: 1px solid rgba(255,255,255,.3) !important; border-radius: 12px !important; color: #fff !important; box-shadow: none;
+}
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field textarea { min-height: 120px; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field { margin: 0 0 20px !important; padding: 0 !important; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field-label { display: block; margin: 0 0 8px !important; font-weight: 600; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field input:focus,
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field textarea:focus,
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field select:focus { border-color: var(--nk-accent, #ff6a1a) !important; outline: 0; box-shadow: 0 0 0 3px rgba(255,106,26,.28); }
+body.nk-legacy-page .nk-main .wpforms-container .select-wrap { position: relative; width: 100%; max-width: 100%; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field-label,
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field-sublabel,
+body.nk-legacy-page .nk-main .wpforms-container label { color: #f3ebe7 !important; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field-medium,
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-field-large { max-width: 100% !important; width: 100% !important; }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-submit {
+	background: var(--nk-accent, #ff6a1a) !important; color: #fff !important; border: 0 !important; border-radius: 999px !important; padding: 15px 30px !important; font-weight: 600; cursor: pointer; transition: transform .25s, filter .25s;
+}
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-submit:hover { filter: brightness(1.08); transform: translateY(-2px); }
+body.nk-legacy-page .nk-main .wpforms-container .wpforms-recaptcha-container { margin-top: 18px; }
+body.nk-legacy-page .nk-main a:hover { color: var(--nk-accent, #ff6a1a); }
+body.nk-legacy-page .nk-main iframe { border-radius: 14px; max-width: 100%; }
+
+/* the home header has no bar; once the page is scrolled over content it gets the dark glass the home uses when it needs a backdrop */
+body.nk-legacy-page .nk-header.ink-header.is-scrolled {
+	background: rgba(22, 6, 2, .62);
+	-webkit-backdrop-filter: blur(20px) saturate(150%); backdrop-filter: blur(20px) saturate(150%);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, .22);
+}
+
+/* original sliders/carousels are wider than the NK container; never let them cause horizontal scroll */
+body.nk-legacy-page { overflow-x: hidden; }
+body.nk-legacy-page .nk-main { overflow-x: clip; }
+
+@media (max-width: 1024px) {
+	body.nk-legacy-page .nk-main { padding-top: var(--nk-legacy-offset-m, 80px); }
+	body.nk-legacy-page .nk-main:has(> .nkc-top-page:first-child) { padding-top: 0; }
+	body.nk-legacy-page .nkc-top-page { padding-top: var(--nk-legacy-offset-m, 80px); }
+}

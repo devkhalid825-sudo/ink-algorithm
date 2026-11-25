@@ -1,0 +1,74 @@
+/* NK Studio — motion layer (values taken from the reference site's computed styles) */
+:root{
+  --nk-accent:#ff6a1a;
+  --nk-accent-light:#ff8a3d;
+  --nk-ease:cubic-bezier(.18,1,.32,1);
+  --nk-xl:56px;--nk-lg:40px;
+}
+@media(min-width:768px){:root{--nk-xl:120px;--nk-lg:72px}}
+@media(min-width:1024px){:root{--nk-xl:200px;--nk-lg:100px}}
+.nk-theme-light,.nk-theme-grey{--nk-accent:var(--nk-accent-light)}
+.nk-theme-grey{background:#f7f7f7}
+html.lenis{scroll-behavior:auto}
+
+/* typography scale */
+.nk-headline{font-size:var(--nk-lg);line-height:.94;letter-spacing:-.03em}
+.nk-hero .nk-hero__headline,.nk-statement .nk-statement__headline{font-size:var(--nk-xl);line-height:.9;letter-spacing:-.02em}
+.nk-footer .nk-footer__headline{font-size:clamp(34px,3.7vw,56px);line-height:1.02}
+.nk-bigtext .nk-bigtext__inner{font-size:clamp(80px,15vw,260px)}
+
+/* word mask reveal (titles) */
+.nk-mask{display:inline-block;vertical-align:top;clip-path:inset(0 -100vw);padding-bottom:.2em;margin-bottom:-.2em}
+.nk-mask--block{display:block}
+.nk-word,.nk-line{display:inline-block}
+.nk-line{display:block}
+.nk-split .nk-word{transform:translateY(112%);transition:transform .6s var(--nk-ease);transition-delay:calc(var(--i,0)*45ms)}
+.nk-split.is-in .nk-word{transform:none}
+.nk-linesplit .nk-line{transform:translateY(112%);transition:transform .72s var(--nk-ease);transition-delay:calc(var(--i,0)*70ms)}
+.nk-linesplit.is-in .nk-line{transform:none}
+.nk-headline.nk-reveal{opacity:1;transform:none;transition:none}
+
+/* fade + blur (cards, strips) */
+.nk-fb{opacity:0;filter:blur(8px);transition:opacity .72s var(--nk-ease),filter .72s var(--nk-ease)}
+.nk-fb.is-in{opacity:1;filter:none}
+
+/* hover dims the sibling cards */
+.nk-card.nk-reveal{transition:opacity .52s var(--nk-ease),filter .52s var(--nk-ease),transform .8s var(--nk-ease)}
+.nk-card{transition:opacity .52s var(--nk-ease),filter .52s var(--nk-ease)}
+@media(min-width:1024px) and (hover:hover){
+  .nk-cards:has(.nk-card:hover) .nk-card:not(:hover){opacity:.4;filter:blur(4px)}
+}
+
+/* image parallax uses the independent `translate`/`scale` props so hover scale still works */
+.nk-card__media img{scale:1.14;will-change:translate}
+
+/* arrow link: underline wipes out to the right and back in from the left */
+.nk-link,.nk-ulink{position:relative;border-bottom:0;padding-bottom:6px}
+.nk-link::before,.nk-link::after,.nk-ulink::before,.nk-ulink::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--nk-accent);transition:transform .52s var(--nk-ease)}
+.nk-link::before,.nk-ulink::before{transform:scaleX(0);transform-origin:left}
+.nk-link:hover,.nk-ulink:hover{opacity:1}
+.nk-link:hover::after,.nk-ulink:hover::after{transform:scaleX(0);transform-origin:right}
+.nk-link:hover::before,.nk-ulink:hover::before{transform:scaleX(1);transition-delay:.12s}
+.nk-news-form{border-bottom:2px solid var(--nk-accent)}
+
+/* cursor: "PLAY" marquee over media cards */
+.nk-cursor{transition:opacity .3s,width .52s var(--nk-ease),height .52s var(--nk-ease),margin .52s var(--nk-ease),background .3s}
+.nk-cursor__play{position:absolute;inset:0;display:flex;align-items:center;overflow:hidden;border-radius:50%;opacity:0;transition:opacity .3s}
+.nk-cursor__track{display:flex;width:max-content;gap:12px;animation:nk-play 12s linear infinite}
+.nk-cursor__track span{font:700 12px/1 var(--nk-font);color:#000;letter-spacing:-.02em}
+@keyframes nk-play{to{transform:translateX(-50%)}}
+.nk-cursor.is-play{width:100px;height:100px;margin:-50px 0 0 -50px;background:rgba(213,213,213,.55);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px)}
+.nk-cursor.is-play .nk-cursor__play{opacity:1}
+.nk-cursor.is-play i{opacity:0}
+
+/* testimonial logos: circular rail, neighbours fade out */
+.nk-testi__logos{position:relative;display:block;height:56px;margin:50px 0 40px}
+.nk-testi__logo{position:absolute;left:50%;top:0;width:86px;height:100%;display:flex;align-items:center;justify-content:center;padding:0;opacity:0;visibility:hidden;transform:translateX(-50%);transition:transform .72s var(--nk-ease),opacity .72s var(--nk-ease),visibility .72s;filter:grayscale(1)}
+.nk-testi__logo.is-active{transform:translateX(-50%) scale(1)}
+.nk-testi__quote{transform:translateY(8px);transition:opacity .42s var(--nk-ease),transform .42s var(--nk-ease),visibility .42s}
+.nk-testi__quote.is-active{transform:none}
+@media(prefers-reduced-motion:reduce){
+  .nk-split .nk-word,.nk-linesplit .nk-line{transform:none;transition:none}
+  .nk-fb{opacity:1;filter:none;transition:none}
+  .nk-cursor__track{animation:none}
+}

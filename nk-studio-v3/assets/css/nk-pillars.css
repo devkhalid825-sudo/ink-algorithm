@@ -1,0 +1,333 @@
+/* =====================================================================
+   NK Studio v3.3 — Strategic Pillars, premium layout  (widget: NK Strategic Pillars (3 cards))
+   motion: assets/js/nk-pillars.js  ·  everything is scoped to .nk-pillars-x
+   ===================================================================== */
+
+.nk-section.nk-pillars-x {
+  --pc-ease: cubic-bezier(.16, 1, .3, 1);
+  --pc-accent: var(--nk-accent, #ff6a1a);
+  --pc-ink: #0b0503;
+  position: relative; isolation: isolate; overflow: hidden;
+  padding: clamp(110px, 10vw, 180px) 0 clamp(130px, 12vw, 210px);
+  background: transparent !important;
+}
+.nk-section.nk-pillars-x::before { display: none; }
+.nk-pillars-x .nk-container { position: relative; z-index: 1; width: min(100% - 48px, 1480px); max-width: none; }
+
+/* soft orange light that drifts after the mouse */
+.nk-pc__aura {
+  position: absolute; z-index: 0; left: 0; top: 0; width: 62vw; height: 62vw; max-width: 1100px; max-height: 1100px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 128, 50, .38), rgba(255, 90, 20, .12) 55%, transparent 72%);
+  filter: blur(30px); opacity: .9;
+  transform: translate3d(calc(var(--ax, 50vw) - 50%), calc(var(--ay, 40%) - 50%), 0);
+  transition: transform 1.6s var(--pc-ease);
+  will-change: transform;
+}
+
+/* ---------- heading: eyebrow / big headline left, subtitle right ---------- */
+.nk-pillars-x .nk-pc__head {
+  display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: end;
+  column-gap: clamp(32px, 6vw, 120px); row-gap: 22px;
+  max-width: none; margin: 0 0 clamp(56px, 6.5vw, 110px); text-align: left;
+}
+.nk-pc__eyebrow {
+  grid-column: 1 / -1; display: flex; align-items: center; gap: 16px;
+  font: 500 12px/1 var(--nk-font, 'DM Sans', sans-serif); letter-spacing: .28em; text-transform: uppercase; color: rgba(255, 255, 255, .9);
+}
+.nk-pc__count { font-variant-numeric: tabular-nums; letter-spacing: .12em; opacity: .75; }
+.nk-pc__rule { display: block; width: 72px; height: 1px; background: currentColor; opacity: .55; transform-origin: left; }
+.nk-pillars-x .nk-pc__title {
+  margin: 0; max-width: 13ch;
+  font-family: var(--nk-font, 'DM Sans', sans-serif); font-weight: 400;
+  font-size: clamp(46px, 6vw, 112px); line-height: .96; letter-spacing: -.05em; color: #fff;
+}
+.nk-pillars-x .nk-pc__sub {
+  margin: 0 0 .55em; max-width: 27em; justify-self: end;
+  font-size: clamp(16px, 1.15vw, 20px); line-height: 1.4; letter-spacing: -.012em; color: rgba(255, 255, 255, .86);
+}
+
+/* words rise out of a mask (split by nk-pillars.js on the live site) */
+.nk-pw { display: inline-block; overflow: hidden; vertical-align: top; padding: 0 .02em .12em; margin: 0 -.02em -.12em; }
+.nk-pw > span { display: inline-block; transform: translate3d(0, 108%, 0) rotate(5deg); transform-origin: 0 100%; }
+.nk-pc__hl { position: relative; display: inline-block; white-space: nowrap; z-index: 0; }
+.nk-pc__hl::before { /* ink marker that wipes in behind the glowing words */
+  content: ""; position: absolute; z-index: -1; left: -.12em; right: -.14em; top: .1em; bottom: -.02em;
+  border-radius: .16em; background: var(--pc-ink);
+  box-shadow: 0 .25em .9em -.3em rgba(0, 0, 0, .6);
+  transform: scaleX(0); transform-origin: left center;
+}
+.nk-pc__hl .nk-pw > span {
+  background: linear-gradient(100deg, #fff 0%, #ffd9bf 45%, #ff8a3c 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* ---------- cards ---------- */
+.nk-pillars-x .nk-pc__grid {
+  display: grid; grid-template-columns: repeat(var(--nk-pc-cols, 3), minmax(0, 1fr));
+  gap: clamp(20px, 2.3vw, 40px); align-items: start; perspective: 1800px;
+}
+.nk-pillars-x .nk-feature-card.nk-pc { /* reset older card styles */
+  display: block; padding: 0; margin: 0; border: 0; border-radius: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none; color: inherit; text-decoration: none;
+  translate: 0 var(--py, 0px);
+}
+.nk-pillars-x .nk-feature-card.nk-pc:hover { transform: none; box-shadow: none; }
+.nk-pillars-x--stagger .nk-pc:nth-child(3n + 2) { margin-top: clamp(40px, 6vw, 120px); }
+
+.nk-pc__frame {
+  position: relative; padding: 12px; border-radius: 28px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .13), rgba(30, 10, 3, .32) 38%, rgba(12, 4, 1, .62));
+  -webkit-backdrop-filter: blur(22px) saturate(115%); backdrop-filter: blur(22px) saturate(115%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 40px 90px -42px rgba(25, 5, 0, .95);
+  transform-style: preserve-3d;
+  transform: perspective(1300px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform .9s var(--pc-ease), box-shadow .6s ease;
+  will-change: transform;
+}
+.nk-pc__frame::before { /* thin light rim */
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
+  background: linear-gradient(145deg, rgba(255, 255, 255, .6), rgba(255, 255, 255, .06) 34%, rgba(255, 255, 255, .04) 66%, rgba(255, 150, 70, .55));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+}
+.nk-pc.is-tilting .nk-pc__frame { transition: transform .14s linear, box-shadow .6s ease; }
+.nk-pc:hover .nk-pc__frame,
+.nk-pc:focus-visible .nk-pc__frame { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), 0 60px 120px -40px rgba(255, 90, 20, .45), 0 30px 60px -30px rgba(0, 0, 0, .9); }
+.nk-pc:focus-visible { outline: none; }
+.nk-pc:focus-visible .nk-pc__frame { outline: 2px solid var(--pc-accent); outline-offset: 4px; }
+
+.nk-pc__media {
+  position: relative; overflow: hidden; aspect-ratio: 4 / 4.3; border-radius: 19px; background: #050505;
+  transform: translateZ(26px);
+}
+.nk-pc__media > img,
+.nk-pc__media > .nk-feature-visual {
+  position: absolute; inset: -5%; width: 110%; height: 110%; max-width: none; object-fit: cover; border-radius: 0;
+  transform: translate3d(var(--ix, 0px), var(--iy, 0px), 0) scale(1.02);
+  transition: transform 1.1s var(--pc-ease), filter .6s ease;
+}
+.nk-pc:hover .nk-pc__media > img,
+.nk-pc:hover .nk-pc__media > .nk-feature-visual { transform: translate3d(var(--ix, 0px), var(--iy, 0px), 0) scale(1.08); }
+.nk-pc.is-tilting .nk-pc__media > img,
+.nk-pc.is-tilting .nk-pc__media > .nk-feature-visual { transition: transform .3s linear; }
+.nk-pc__shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(0, 0, 0, .28) 0%, transparent 26%, transparent 62%, rgba(0, 0, 0, .45) 100%); }
+
+.nk-pc__num, .nk-pc__arrow {
+  position: absolute; z-index: 2; top: 16px; display: grid; place-items: center; color: #fff;
+  background: rgba(10, 5, 3, .38); border: 1px solid rgba(255, 255, 255, .22);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.nk-pc__num {
+  left: 16px; height: 32px; padding: 0 13px; border-radius: 999px;
+  font: 500 12px/1 var(--nk-font, 'DM Sans', sans-serif); letter-spacing: .16em; font-variant-numeric: tabular-nums;
+}
+.nk-pillars-x--nonum .nk-pc__num { display: none; }
+.nk-pc__arrow {
+  right: 16px; width: 46px; height: 46px; border-radius: 50%;
+  transition: background-color .45s ease, color .45s ease, transform .6s var(--pc-ease), border-color .45s ease;
+}
+.nk-pc__arrow svg { transition: transform .6s var(--pc-ease); }
+.nk-pc:hover .nk-pc__arrow { background: #fff; color: #0b0503; border-color: #fff; transform: scale(1.06); }
+.nk-pc:hover .nk-pc__arrow svg { transform: rotate(45deg); }
+
+.nk-pillars-x .nk-pc__body { position: relative; padding: 26px 14px 20px; text-align: left; transform: translateZ(18px); }
+.nk-pillars-x .nk-pc__ttl {
+  margin: 0 0 10px; color: #fff; font-family: var(--nk-font, 'DM Sans', sans-serif);
+  font-size: clamp(22px, 1.75vw, 31px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em;
+}
+.nk-pillars-x .nk-pc__desc { margin: 0; max-width: 30em; font-size: clamp(14.5px, .95vw, 16.5px); line-height: 1.45; letter-spacing: -.01em; color: rgba(255, 255, 255, .74); }
+.nk-pillars-x .nk-pc__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
+.nk-pillars-x .nk-pc__tags .nk-feature-tag {
+  padding: 7px 12px; border-radius: 999px; font-size: 12px; line-height: 1; color: rgba(255, 255, 255, .9);
+  background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .16);
+}
+.nk-pillars-x .nk-pc__more { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; color: #fff; }
+.nk-pc__line { position: relative; display: block; height: 1px; margin-top: 22px; background: rgba(255, 255, 255, .14); overflow: hidden; }
+.nk-pc__line::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--pc-accent), #ffd2b0); transform: scaleX(0); transform-origin: left; transition: transform .9s var(--pc-ease); }
+.nk-pc:hover .nk-pc__line::after { transform: scaleX(1); }
+
+.nk-pc__glare {
+  position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, .16), rgba(255, 180, 120, .05) 35%, transparent 60%);
+  transition: opacity .5s ease;
+}
+.nk-pc:hover .nk-pc__glare { opacity: 1; }
+
+.nk-pc__dots { display: none; }
+.nk-pc__cta { margin-top: clamp(48px, 5vw, 80px); text-align: center; }
+
+/* ---------- entrance (the live site adds .is-in when the section scrolls in) ---------- */
+.nk-pillars-x.nk-pc-anim .nk-pc__rule { transform: scaleX(0); transition: transform 1.2s var(--pc-ease) .1s; }
+.nk-pillars-x.nk-pc-anim .nk-pc__count,
+.nk-pillars-x.nk-pc-anim .nk-pc__eyebrow-label { opacity: 0; transform: translateY(12px); transition: opacity .9s ease, transform 1s var(--pc-ease); }
+.nk-pillars-x.nk-pc-anim .nk-pc__eyebrow-label { transition-delay: .25s; }
+.nk-pillars-x.nk-pc-anim .nk-pw > span { transition: transform 1.25s var(--pc-ease) calc(.15s + var(--w, 0) * 60ms); }
+.nk-pillars-x.nk-pc-anim .nk-pc__hl::before { transition: transform 1.1s var(--pc-ease) calc(.55s + var(--w, 0) * 60ms); }
+.nk-pillars-x.nk-pc-anim .nk-pc__sub { opacity: 0; filter: blur(8px); transform: translateY(24px); transition: opacity 1.1s ease .55s, filter 1.1s ease .55s, transform 1.3s var(--pc-ease) .55s; }
+.nk-pillars-x.nk-pc-anim .nk-pc {
+  opacity: 0; filter: blur(10px);
+  transform: translate3d(0, 110px, 0) rotateX(16deg) scale(.95); transform-origin: 50% 100%;
+  transition: opacity 1s ease calc(.35s + var(--i, 0) * 150ms), filter 1s ease calc(.35s + var(--i, 0) * 150ms),
+              transform 1.5s var(--pc-ease) calc(.35s + var(--i, 0) * 150ms);
+}
+.nk-pillars-x.nk-pc-anim .nk-pc__cta { opacity: 0; transform: translateY(20px); transition: opacity 1s ease .9s, transform 1.2s var(--pc-ease) .9s; }
+
+.nk-pillars-x.is-in .nk-pc__rule { transform: scaleX(1); }
+.nk-pillars-x.is-in .nk-pc__count,
+.nk-pillars-x.is-in .nk-pc__eyebrow-label,
+.nk-pillars-x.is-in .nk-pc__cta { opacity: 1; transform: none; }
+.nk-pillars-x.is-in .nk-pw > span { transform: none; }
+.nk-pillars-x.is-in .nk-pc__hl::before,
+.nk-pillars-x:not(.nk-pc-anim) .nk-pc__hl::before { transform: scaleX(1); }
+.nk-pillars-x.is-in .nk-pc__sub { opacity: 1; filter: none; transform: none; }
+.nk-pillars-x.is-in .nk-pc { opacity: 1; filter: none; transform: none; }
+.nk-pillars-x.is-done .nk-pc { transition: none; filter: none; } /* after the entrance: no leftover delays on hover */
+
+/* ---------- tablet ---------- */
+@media (max-width: 1100px) {
+  .nk-pillars-x .nk-pc__head { grid-template-columns: 1fr; }
+  .nk-pillars-x .nk-pc__sub { justify-self: start; }
+  .nk-pillars-x .nk-pc__title { max-width: 16ch; }
+  .nk-pc__frame { padding: 10px; border-radius: 24px; }
+  .nk-pc__media { border-radius: 16px; }
+}
+
+/* ---------- phones: swipe carousel ---------- */
+@media (max-width: 900px) {
+  .nk-section.nk-pillars-x { padding: 90px 0 100px; }
+  .nk-pillars-x .nk-pc__title { font-size: clamp(40px, 11vw, 64px); }
+  .nk-pillars-x .nk-pc__grid {
+    display: flex; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    margin: 0 calc(50% - 50vw); padding: 6px calc(50vw - 50%) 34px; scroll-padding-inline: calc(50vw - 50%); perspective: none;
+  }
+  .nk-pillars-x .nk-pc__grid::-webkit-scrollbar { display: none; }
+  .nk-pillars-x .nk-feature-card.nk-pc { flex: 0 0 min(84%, 420px); scroll-snap-align: center; margin-top: 0 !important; translate: none; }
+  .nk-pc__frame { transform: none !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 22px 40px -26px rgba(25, 5, 0, .85); }
+  .nk-pc__eyebrow { gap: 12px; font-size: 11px; letter-spacing: .22em; white-space: nowrap; }
+  .nk-pc__rule { width: 36px; }
+  .nk-pc__dots { display: flex; justify-content: center; gap: 8px; margin-top: 8px; }
+  .nk-pc__dots i { width: 6px; height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .35); transition: width .5s var(--pc-ease), background-color .3s ease; }
+  .nk-pc__dots i.is-on { width: 26px; background: #fff; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nk-pillars-x.nk-pc-anim .nk-pc, .nk-pillars-x.nk-pc-anim .nk-pc__sub, .nk-pillars-x.nk-pc-anim .nk-pw > span,
+  .nk-pillars-x.nk-pc-anim .nk-pc__count, .nk-pillars-x.nk-pc-anim .nk-pc__eyebrow-label, .nk-pillars-x.nk-pc-anim .nk-pc__rule {
+    opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important;
+  }
+  .nk-pc__aura { display: none; }
+}
+
+/* =====================================================================
+   v3.3.1 — clean version: no black marker behind the headline words, no card frame / border / dark gradient /
+   shadow under the cards, no label, no subtitle (both can be switched back on in Elementor)
+   ===================================================================== */
+.nk-pillars-x .nk-pc__head { grid-template-columns: 1fr; margin-bottom: clamp(48px, 5.5vw, 96px); }
+.nk-pillars-x .nk-pc__title { max-width: 16ch; }
+.nk-pc__hl::before { display: none; }
+.nk-pc__hl .nk-pw > span { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: inherit; }
+
+.nk-pc__frame,
+.nk-pc:hover .nk-pc__frame,
+.nk-pc:focus-visible .nk-pc__frame {
+  padding: 0; border-radius: 0; background: none; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.nk-pc__frame::before { display: none; }
+.nk-pc__glare { display: none; }
+.nk-pc__media { border-radius: 20px; }
+.nk-pc__media::after { /* the light that follows the mouse, on the picture only */
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .5s ease;
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, .14), transparent 55%);
+}
+.nk-pc:hover .nk-pc__media::after { opacity: 1; }
+.nk-pc__shade { background: linear-gradient(180deg, rgba(0, 0, 0, .25) 0%, transparent 22%); }
+.nk-pillars-x .nk-pc__body { padding: 24px 2px 0; }
+@media (max-width: 900px) {
+  .nk-pc__frame { box-shadow: none; }
+  .nk-pillars-x .nk-pc__grid { padding-bottom: 14px; }
+}
+/* sharp pictures/text when resting: the 3D transform is only applied while the mouse tilts the card */
+.nk-pc__media, .nk-pillars-x .nk-pc__body { transform: none; }
+.nk-pc__frame { transform: none; }
+.nk-pc.is-tilting .nk-pc__frame { transform: perspective(1300px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); }
+
+/* =====================================================================
+   v3.3.2 — no number / arrow on the pictures; headline words roll up when the mouse goes over it
+   ===================================================================== */
+.nk-pillars-x--nonum .nk-pc__num, .nk-pillars-x--nonum .nk-pc__arrow { display: none; }
+.nk-pillars-x--nonum .nk-pc__shade { display: none; }
+.nk-pillars-x .nk-pc__title { cursor: default; }
+.nk-pc__title .nk-pw > span { position: relative; }
+.nk-pc__title .nk-pw > span::after { /* copy of the word waiting below the mask */
+  content: attr(data-t); position: absolute; left: 0; top: calc(100% + .14em); color: inherit;
+}
+.nk-pillars-x.is-done .nk-pc__title .nk-pw > span { transition: none; transform: none; }
+.nk-pillars-x.is-done .nk-pc__title.is-roll .nk-pw > span {
+  animation: nkPcRoll .85s cubic-bezier(.65, 0, .25, 1) calc(var(--w, 0) * 45ms) both;
+}
+@keyframes nkPcRoll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, calc(-100% - .14em), 0); }
+}
+@media (prefers-reduced-motion: reduce) { .nk-pc__title .nk-pw > span::after { display: none; } }
+.nk-pillars-x .nk-pc__title { line-height: 1.04; }
+.nk-pc__title .nk-pw { padding-bottom: .1em; margin-bottom: -.1em; }
+.nk-pc__title .nk-pw > span::after { top: calc(100% + .12em); }
+@keyframes nkPcRoll { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(0, calc(-100% - .12em), 0); } }
+.nk-pc__title .nk-pw { overflow: hidden; -webkit-clip-path: inset(0 -.06em); clip-path: inset(0 -.06em); }
+/* final hover effect: a clean wave — each word lifts and settles one after another (no overlapping copies) */
+.nk-pc__title .nk-pw { overflow: visible; -webkit-clip-path: none; clip-path: none; }
+.nk-pc-anim:not(.is-done) .nk-pc__title .nk-pw { overflow: hidden; }
+.nk-pc__title .nk-pw > span::after { display: none; }
+.nk-pillars-x.is-done .nk-pc__title.is-roll .nk-pw > span {
+  animation: nkPcWave .9s cubic-bezier(.3, .7, .2, 1) calc(var(--w, 0) * 70ms) both;
+}
+@keyframes nkPcWave {
+  0%   { transform: translate3d(0, 0, 0); color: #fff; }
+  35%  { transform: translate3d(0, -.16em, 0) rotate(-2deg); color: #ffe0c9; }
+  70%  { transform: translate3d(0, .02em, 0); }
+  100% { transform: translate3d(0, 0, 0); color: #fff; }
+}
+
+/* =====================================================================
+   v3.7.1 — card pictures: NO movement inside the card, and every picture fills the whole box (cover).
+   Elementor's own ".elementor img { height:auto; max-width:100% }" used to shrink the picture (black strip at the
+   bottom / right), so the size is forced here.
+   ===================================================================== */
+.nk-pillars-x .nk-pc__media { overflow: hidden; }
+.nk-pillars-x .nk-pc__media > img,
+.nk-pillars-x .nk-pc__media > .nk-feature-visual,
+.elementor .nk-pillars-x .nk-pc__media > img {
+  position: absolute !important; inset: 0 !important; top: 0 !important; left: 0 !important;
+  width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important;
+  margin: 0 !important; object-fit: cover !important; object-position: center !important;
+  border-radius: 0 !important; transform: none !important; transition: none !important;
+}
+.nk-pillars-x .nk-pc:hover .nk-pc__media > img,
+.nk-pillars-x .nk-pc.is-tilting .nk-pc__media > img,
+.nk-pillars-x .nk-pc:hover .nk-pc__media > .nk-feature-visual { transform: none !important; }
+
+/* =====================================================================
+   v3.7.3 — no hard line under the stats: the orange mouse-glow is clipped by the section's top edge, which drew a
+   faint horizontal line below "3M+ / 240+ Awards". The glow now lives in a layer whose top / bottom edges fade out.
+   ===================================================================== */
+.nk-pc__glow {
+  position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 90px, #000 260px, #000 calc(100% - 260px), rgba(0,0,0,.35) calc(100% - 90px), transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, rgba(0,0,0,.35) 90px, #000 260px, #000 calc(100% - 260px), rgba(0,0,0,.35) calc(100% - 90px), transparent 100%);
+}
+@media (max-width: 900px) { .nk-pc__glow { display: none; } }
+/* stats section: nothing may paint a border / edge under it */
+.nk-section.nk-w-nk_stats { background: transparent; border: 0; box-shadow: none; }
+
+/* =====================================================================
+   v3.7.3 — Reviews ("Voices. From ambitious leaders.") = solid black, white text.
+   Change it in Elementor: NK Testimonials > Style > Appearance (theme, background colour, text colour).
+   ===================================================================== */
+.nk-section.nk-w-nk_testimonials.nk-theme-dark { background-color: #000; background-image: none; color: #fff; }
+.nk-w-nk_testimonials.nk-theme-dark .nk-headline__muted { color: rgba(255,255,255,.45); }
+.nk-w-nk_testimonials.nk-theme-dark .nk-testi__role { opacity: .65; }
+.nk-w-nk_testimonials.nk-theme-dark .nk-testi__avatar { background: rgba(255,255,255,.14); }
