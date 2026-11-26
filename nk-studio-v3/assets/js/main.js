@@ -192,3 +192,22 @@
     new MutationObserver(function () { init(); }).observe(document.body, { childList: true, subtree: true });
   }
 })();
+
+// Keep the Contact introduction and its details together beside the taller form.
+(function () {
+  if (!document.body || !document.body.classList.contains('nk-contact-page')) return;
+  const main = document.querySelector('#nk-main');
+  if (!main) return;
+  const intro = Array.from(main.querySelectorAll('p, .elementor-heading-title'))
+    .find(node => node.textContent.trim().startsWith('For more queries'));
+  const details = Array.from(main.querySelectorAll('h2,h3,h4,h5,h6,.elementor-heading-title,a[href^="tel:"]'))
+    .find(node => node.textContent.trim() === 'Contact Us' || node.matches('a[href^="tel:"]'));
+  if (!intro || !details) return;
+  let group = intro.parentElement;
+  while (group && !group.contains(details)) group = group.parentElement;
+  if (!group || !main.contains(group) || group.querySelector('form')) return;
+  group.classList.add('nk-contact-copy-group');
+  for (let node = details; node && node !== group; node = node.parentElement) {
+    if (node.parentElement === group) node.classList.add('nk-contact-details-row');
+  }
+})();
