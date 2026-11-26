@@ -66,3 +66,10 @@ body.nk-contact-page .ink-footer > .ink-footer__wrap:has(> .ink-footer__top--sol
   margin-inline: auto;
   padding-inline: 0;
 }
+/* The wider desktop column needs a landscape map to fit beside the form. */
+@media (min-width: 768px) {
+  .nk-contact-layout__map {
+    aspect-ratio: auto;
+    height: clamp(250px, 28vw, 410px);
+  }
+}
