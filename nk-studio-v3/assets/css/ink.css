@@ -1692,3 +1692,15 @@ body.front-page .ink-nav .menu-item-home > a:hover, .ink-nav .menu-item-faq > a:
 /* v3.10.0 — the original theme styles every list item with an arrow bullet (ul > li:before) and more; never inside the NK header/footer */
 .nk-header li::before, .nk-header li::after, .nk-footer li::before, .nk-footer li::after { content: none !important; display: none !important; }
 .nk-header .menu-item > a::before, .nk-header .menu-item > a::after { content: none !important; }
+
+/* Use the blog card grid's content edges for the homepage footer CTA. */
+body.home .ink-footer > .ink-footer__wrap:has(> .ink-footer__top--solo) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: var(--nk-gutter);
+}
+body.home .ink-footer__top--solo .ink-footer__cta { text-align: left; }
+body.home .ink-footer__top--solo .ink-footer__headline { margin-inline: 0; }
+body.home .ink-footer__top--solo .ink-footer__btns { justify-content: flex-start; }
