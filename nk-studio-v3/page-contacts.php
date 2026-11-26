@@ -33,6 +33,7 @@ $render = static function ( $nodes ) {
 		}
 	}
 };
+wp_enqueue_style( 'nk-contact-layout', get_template_directory_uri() . '/assets/css/contact-layout.css', array( 'nk-ink' ), nk_asset_ver( '/assets/css/contact-layout.css' ) );
 get_header();
 ?>
 <section class="nk-contact-layout" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
