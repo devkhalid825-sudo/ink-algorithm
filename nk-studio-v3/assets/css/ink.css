@@ -1740,3 +1740,12 @@ body.home .ink-footer__top--solo .ink-footer__btns { justify-content: flex-start
 .nk-contact-page .nk-contact-copy-group > .nk-contact-details-row {
   margin-block-start: clamp(24px, 4vw, 56px) !important;
 }
+
+/* Preserve the embedded map's original colors in both Elementor states. */
+body.nk-contact-page .elementor-widget-google_maps,
+body.nk-contact-page .elementor-widget-google_maps > .elementor-widget-container,
+body.nk-contact-page .elementor-custom-embed:has(iframe[src*="google.com/maps"]),
+body.nk-contact-page iframe[src*="google.com/maps"],
+body.nk-contact-page .elementor-widget-google_maps iframe {
+  filter: none !important;
+}
