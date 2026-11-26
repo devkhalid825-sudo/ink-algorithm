@@ -1704,3 +1704,27 @@ body.home .ink-footer > .ink-footer__wrap:has(> .ink-footer__top--solo) {
 body.home .ink-footer__top--solo .ink-footer__cta { text-align: left; }
 body.home .ink-footer__top--solo .ink-footer__headline { margin-inline: 0; }
 body.home .ink-footer__top--solo .ink-footer__btns { justify-content: flex-start; }
+
+@media (min-width: 1101px) {
+  .nk-contact-page #nk-header .ink-nav,
+  .nk-contact-page #nk-header .ink-nav > ul {
+    width: max-content;
+    flex: none;
+  }
+  .nk-contact-page #nk-header .ink-nav > ul {
+    margin: 0;
+    padding: 0;
+    justify-content: flex-start;
+    gap: 2px;
+  }
+  .nk-contact-page #nk-header .ink-nav > ul > li {
+    flex: none;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+  .nk-contact-page #nk-header .ink-nav > ul > li > a {
+    margin: 0;
+    padding-inline: 14px;
+  }
+}

@@ -38,6 +38,9 @@ function nk_is_legacy_page( $post_id = 0 ) {
 
 /** Original inner pages get `nk-legacy-page` (the NK-designed front page never does). */
 add_filter( 'body_class', function ( $classes ) {
+	if ( is_page( 'contacts' ) ) {
+		$classes[] = 'nk-contact-page';
+	}
 	if ( is_front_page() && nk_is_elementor_page( get_queried_object_id() ) ) {
 		return $classes;
 	}
