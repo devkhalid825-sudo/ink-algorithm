@@ -34,6 +34,9 @@ $render = static function ( $nodes ) {
 	}
 };
 wp_enqueue_style( 'nk-contact-layout', get_template_directory_uri() . '/assets/css/contact-layout.css', array( 'nk-ink' ), nk_asset_ver( '/assets/css/contact-layout.css' ) );
+$remaining = array_slice( $widgets, $form_index + 1 );
+$map_index = array_search( 'google_maps', array_column( $remaining, 'widgetType' ), true );
+$map = false === $map_index ? array() : array_splice( $remaining, $map_index, 1 );
 get_header();
 ?>
 <section class="nk-contact-layout" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
@@ -45,9 +48,10 @@ get_header();
 					<div><?php $render( $pair ); ?></div>
 				<?php endforeach; ?>
 			</div>
+<?php if ( $map ) : ?><div class="nk-contact-layout__map"><?php $render( $map ); ?></div><?php endif; ?>
 		</div>
 		<div class="nk-contact-layout__form"><?php $render( array( $widgets[ $form_index ] ) ); ?></div>
 	</div>
-	<?php $render( array_slice( $widgets, $form_index + 1 ) ); ?>
+	<?php $render( $remaining ); ?>
 </section>
 <?php get_footer(); ?>
