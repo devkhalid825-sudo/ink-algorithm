@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(28px, 5vw, 76px);
+  gap: clamp(20px, 2vw, 32px);
 }
 .nk-contact-layout__details {
   display: grid;
@@ -28,7 +28,7 @@
 }
 
 .nk-contact-layout__map {
-  width: min(100%, 400px);
+  width: 100%;
   aspect-ratio: 1;
   margin-top: clamp(20px, 3vw, 40px);
   border-radius: 16px;
@@ -57,4 +57,12 @@ body.page-id-71 .nk-contact-layout__map .elementor-widget-google_maps {
   transform: none !important;
   font: inherit;
   line-height: 1;
+}
+
+/* Share the Contact row's outer edges with the footer call to action. */
+body.nk-contact-page .ink-footer > .ink-footer__wrap:has(> .ink-footer__top--solo) {
+  width: min(92%, 1320px);
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: 0;
 }
