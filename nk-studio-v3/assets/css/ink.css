@@ -1749,3 +1749,27 @@ body.nk-contact-page iframe[src*="google.com/maps"],
 body.nk-contact-page .elementor-widget-google_maps iframe {
   filter: none !important;
 }
+
+/* Contact form: keep the label and icon centered inside the orange pill. */
+.nk-contact-page #nk-main form :is(button[type="submit"], input[type="submit"]) {
+  box-sizing: border-box;
+  min-height: 44px;
+  height: auto;
+  padding: 12px 28px;
+  line-height: 1.25;
+  text-align: center;
+  vertical-align: middle;
+}
+.nk-contact-page #nk-main form button[type="submit"],
+.nk-contact-page #nk-main form button[type="submit"] .elementor-button-content-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.nk-contact-page #nk-main form button[type="submit"] .elementor-button-icon {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  line-height: 1;
+}
